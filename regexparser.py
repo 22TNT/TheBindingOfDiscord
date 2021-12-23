@@ -19,7 +19,10 @@ def dict_items() -> dict:
         match = re.search(pattern, str(line))
         if match:
             item_tuple = match.group(1, 2, 3, 4)
-            items_dict.update({item_tuple[3].replace("\\'", "'"): item_tuple[2]})
+            if item_tuple[3] == "&lt;3":
+                items_dict.update({"<3": item_tuple[2]})
+            else:
+                items_dict.update({item_tuple[3].replace("\\'", "'"): item_tuple[2]})
     return items_dict
 
 

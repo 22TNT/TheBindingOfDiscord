@@ -76,11 +76,28 @@ async def lookup(ctx, *args: to_upper) -> None:
 
 
 @bot.command()
+async def items(ctx):
+    """ Sends all items in the ITEMS.keys() list. """
+    s = "```\n"
+    for item in regexparser.dict_items().keys():
+        if len(s+item)+5 <= 2000:
+            s += item + "\n"
+        else:
+            s += "```"
+            await ctx.send(s)
+            s = "```\n"
+            s += item + "\n"
+    s += "```"
+    print(s)
+    await ctx.send(s)
+
+
+@bot.command()
 async def help(ctx):
     """ A Help command. """
     e = discord.Embed(
         Title="Help",
-        description="Use `]lookup <item name>` to get info on an item."
+        description="Use `]lookup <item name>` to get info on an item.\nor `]items` to get the list of all items."
                     "\n\nAll item information is taken from The Binding Of Isaac Rebirth wiki, "
                     "https://bindingofisaacrebirth.fandom.com"
     )
